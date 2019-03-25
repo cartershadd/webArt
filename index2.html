@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Art 2</title>
+    <style>
+        { margin:0; padding:0; } /* to remove the top and left whitespace */
+        html, body {
+            width:100%; height:100%;
+        } /* just to be sure these are full screen*/
+        canvas{
+            display:block;  /* To remove the scrollbars */
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*top: 0px;*/
+            /*bottom: 0px;*/
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script type="application/javascript">
+        let repeat = setInterval(run, 0);
+        let canvas = document.getElementById("canvas");
+        canvas.setAttribute('width', window.innerWidth);
+        canvas.setAttribute('height', window.innerHeight);
+        let ctx = canvas.getContext("2d");
+
+
+        var x = 10;
+        var y = 50;
+        var speedx = 30;
+        var speedy = 30;
+        var radius = 50;
+        function run() {
+            // ctx.fillStyle = makeRandomColor(); this will change ball color every time a ball pops up
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            x = x + speedx;
+            y = y + speedy;
+            speedx = speedx + 1;
+            if (x > window.innerWidth && speedx > 0) {
+                speedx = - speedx;
+                radius = 50;
+                ctx.fillStyle = makeRandomColor();
+                ctx.strokeStyle = makeRandomColor();
+            }
+            if (x < 0 && speedx < 0) {
+                speedx = - speedx;
+                radius = 80;
+                ctx.fillStyle = makeRandomColor();
+                ctx.strokeStyle = makeRandomColor();
+            }
+            if (y > window.innerHeight && speedy > 0) {
+                speedy = - speedy;
+                radius = 30;
+                ctx.fillStyle = makeRandomColor();
+                ctx.strokeStyle = makeRandomColor();
+            }
+            if (y < 0 && speedy < 0) {
+                speedy = - speedy;
+                radius = 10;
+                ctx.fillStyle = makeRandomColor();
+                ctx.strokeStyle = makeRandomColor();
+            }
+        }
+
+        function makeRandomColor(){
+            return "#"+((1<<24)*Math.random()|0).toString(16);
+        }
+
+
+    </script>
+</body>
+</html>
