@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smile!</title>
+    <style>
+        {
+            margin: 0
+        ;
+            padding: 0
+        ;
+        } /* to remove the top and left whitespace */
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* just to be sure these are full screen*/
+        canvas {
+            display: block; /* To remove the scrollbars */
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*top: 0px;*/
+            /*bottom: 0px;*/
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script type="application/javascript">
+    let repeat = setInterval(draw, 100);
+    let canvas = document.getElementById("canvas");
+    canvas.setAttribute('width', window.innerWidth);
+    canvas.setAttribute('height', window.innerHeight);
+    let ctx = canvas.getContext("2d");
+    ctx.globalAlpha = 0.5;
+
+    let numbers = [5, 5, 20, 2, 2, 10, 10, 5, 2, 10, 20];
+    var counter = 0;
+    var x = 10;
+    var y = 50;
+    var radius = 50;
+
+    function draw() {
+        // this will change ball color every time a ball pops up
+        ctx.fillStyle = makeRandomColor();
+        counter = counter + 1;
+        ctx.beginPath();
+        ctx.arc(x + 75, y + 75, radius + 50, 0, Math.PI * 2, true); // Outer circle
+        ctx.moveTo(x + 110, y + 75);
+        ctx.arc(x + 75, y + 75, radius + 35, 0, Math.PI, false);  // Mouth (clockwise)
+        ctx.moveTo(x + 65, y + 65);
+        ctx.arc(x + 60, y + 65, 5, 0, Math.PI * 2, false);  // Left eye
+        ctx.moveTo(x + 95, y + 65);
+        ctx.arc(x + 90, y + 65, 5, 0, Math.PI * 2, false);  // Right eye
+        ctx.fill();
+        x = Math.random() * window.innerWidth;
+        y = Math.random() * window.innerHeight;
+        radius = numbers[counter % numbers.length];
+    }
+
+    function makeRandomColor() {
+        return "#" + ((1 << 24) * Math.random() | 0).toString(16);
+    }
+
+
+</script>
+</body>
+</html>
