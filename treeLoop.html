@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Looping Tree</title>
+    <style>
+        {
+            margin: 0
+        ;
+            padding: 0
+        ;
+        } /* to remove the top and left whitespace */
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* just to be sure these are full screen*/
+        canvas {
+            display: block; /* To remove the scrollbars */
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*top: 0px;*/
+            /*bottom: 0px;*/
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script type="application/javascript">
+    let repeat = setInterval(run, 100);
+    let canvas = document.getElementById("canvas");
+    canvas.setAttribute('width', window.innerWidth);
+    canvas.setAttribute('height', window.innerHeight);
+    let ctx = canvas.getContext("2d");
+    ctx.globalAlpha = 0.5;
+
+    function run() {
+        //ctx.clear();
+        tree(window.innerWidth / 2, window.innerHeight, 400, Math.PI, 12);
+    }
+
+    function leaf(x, y, size, angle) {
+        // this will change ball color every time a ball pops up
+        ctx.fillStyle = makeRandomColor();
+        // counter = counter + 1;
+        ctx.beginPath();
+        ctx.moveTo(x + (Math.sin(angle) * size), y + (Math.cos(angle) * size));
+        ctx.arc(x + (Math.sin(angle + (Math.PI / 2)) * size * 0.2), y + (Math.cos(angle + (Math.PI / 2)) * size * 0.2), size / 4, (2.11 * Math.PI) - angle, (1.25 * Math.PI) - angle, true);
+        ctx.arc(x + (Math.sin(angle - (Math.PI / 2)) * size * 0.2), y + (Math.cos(angle - (Math.PI / 2)) * size * 0.2), size / 4, (1.75 * Math.PI) - angle, (2.8 * Math.PI) - angle, true);
+
+
+        ctx.fill();
+    }
+
+    function tree(x, y, size, angle, depth) {
+        if (depth < 0) {
+            return
+        }
+
+        // This draws the line
+        let ex = x + (Math.sin(angle) * size);
+        let ey = y + (Math.cos(angle) * size);
+        ctx.beginPath();
+        ctx.strokeStyle = makeRandomColor();
+        ctx.lineWidth = 5;
+        ctx.moveTo(x, y);
+        ctx.lineTo(ex, ey);
+        ctx.stroke();
+
+        // This is the left tree.
+        tree(ex, ey, size / 2, angle + 1, depth - 1);
+        // This makes the right tree.
+        tree(ex, ey, size * 0.7, angle - 1, depth - 1);
+    }
+
+    function makeRandomColor() {
+        return "#" + ((1 << 24) * Math.random() | 0).toString(16);
+    }
+
+
+</script>
+</body>
+</html>
