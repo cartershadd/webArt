@@ -13,6 +13,8 @@
         html, body {
             width: 100%;
             height: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         /* just to be sure these are full screen*/
@@ -22,21 +24,27 @@
             /*height: 100%;*/
             /*top: 0px;*/
             /*bottom: 0px;*/
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
-<body>
+<body onmousemove="run(event)">
 <canvas id="canvas"></canvas>
 <script type="application/javascript">
-    let repeat = setInterval(run, 100);
+    //let repeat = setInterval(run, 100);
     let canvas = document.getElementById("canvas");
     canvas.setAttribute('width', window.innerWidth);
     canvas.setAttribute('height', window.innerHeight);
     let ctx = canvas.getContext("2d");
     ctx.globalAlpha = 0.5;
 
-    function run() {
-        //ctx.clear();
+    let cursorX = 0;
+    let cursorY = 0;
+
+    function run(event) {
+        cursorX = event.clientX;
+        cursorY = event.clientY;
         tree(window.innerWidth / 2, window.innerHeight, 400, Math.PI, 12);
     }
 
@@ -71,7 +79,7 @@
         // This is the left tree.
         tree(ex, ey, size / 2, angle + 1, depth - 1);
         // This makes the right tree.
-        tree(ex, ey, size * 0.7, angle - 1, depth - 1);
+        tree(ex, ey, size * (cursorX / window.innerHeight), angle - 1, depth - 1);
     }
 
     function makeRandomColor() {

@@ -28,7 +28,7 @@
 <body>
 <canvas id="canvas"></canvas>
 <script type="application/javascript">
-    let repeat = setInterval(draw, 100);
+    let repeat = setInterval(draw, 20);
     let canvas = document.getElementById("canvas");
     canvas.setAttribute('width', window.innerWidth);
     canvas.setAttribute('height', window.innerHeight);
@@ -42,7 +42,7 @@
     var radius = 50;
 
     function draw() {
-        // this will change ball color every time a ball pops up
+        // this will change face color every time a face pops up
         ctx.fillStyle = makeRandomColor();
         counter = counter + 1;
         ctx.beginPath();
